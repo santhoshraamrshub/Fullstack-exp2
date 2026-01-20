@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Balance</title>
+        </head>
+        <body style="text-align:center;">
+            <h1>Balance: $<span id="bal">10000</span></h1>
+            <form>
+                <label>Amount</label><br>
+                    <input type="number" id="entered" ><br>
+                </label>
+            </form>
+            <button onclick="withdraw()" style="color:red;">Withdraw</button>&ensp;<button onclick="deposit()" style="color:blue;">Deposit</button>
+            <p id="error" style="color: red;display: none">Invalid amount</p>
+            <script>
+            let bal=10000;
+            function showError(show){
+                document.getElementById("error").style.display=show?"block":"none";
+            }
+            function deposit(){
+                let amount=Number(document.getElementById("entered").value);
+                if(amount<=0){
+                    showError(true);
+                    return;
+                }
+                bal+=amount;
+                updateUI();
+            }
+            function withdraw(){
+                let amount=Number(document.getElementById("entered").value);
+                if(amount<=0 || amount>bal){
+                    showError(true);
+                    return;
+                }
+                bal-=amount;
+                updateUI();
+            }
+            function updateUI() {
+                document.getElementById("bal").innerText = bal;
+                document.getElementById("entered").value = "";
+                showError(false);
+            }
+        </script>
+        </body>
+    </html>
